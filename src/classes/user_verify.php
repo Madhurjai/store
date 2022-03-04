@@ -20,6 +20,7 @@
 
             $stmt = DB::getInstance();
             $val = $stmt->prepare("select * from users where password = $this->password and email = '$this->email'");
+            if(isset($val)){
             $val->execute();
             $val->setFetchMode(PDO::FETCH_ASSOC);
             $val = new RecursiveArrayIterator($val->fetchAll()) ;
@@ -31,10 +32,11 @@
             if($val[0]['role'] == 'admin'){
                  return "admin" ;
             }
-            else if($val[0]['email'] == $this->email){
+            if($val[0]['email'] == $this->email){
 
                 return $val ;
-            }
+            }}
+            
             else{
                 return false;
             }
