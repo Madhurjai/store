@@ -13,3 +13,9 @@
         $val->update_restricted() ;
         // print_r($val);
     }
+    if(isset($_POST['del_user'])){
+        $value = $_POST['del_user'] ;
+        $val = new customer_status($value);
+        $val->del_from_dash() ;
+        // print_r($val);
+    }

@@ -32,7 +32,10 @@
             if($val[0]['role'] == 'admin'){
                  return "admin" ;
             }
-            if($val[0]['email'] == $this->email){
+            else if($val[0]['status'] == 'restricted'){
+                   return 'restrict';
+            }
+            else if($val[0]['email'] == $this->email){
 
                 return $val ;
             }}

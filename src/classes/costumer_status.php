@@ -47,5 +47,18 @@
             
             
         }
+        public function del_from_dash(){
+
+
+           
+            $stmt = DB::getInstance();
+            $stmt->exec("delete from users where user_id = $this->userid ;");
+            // $val->execute();
+            // $val->setFetchMode(PDO::FETCH_ASSOC);
+            // $val = new RecursiveArrayIterator($val->fetchAll()) ;
+
+            
+            
+        }
     }
   

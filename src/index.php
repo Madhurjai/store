@@ -35,6 +35,9 @@
         else if($val == false){
            header("location: login.php?correct=2"); 
          }
+        else if($val == 'restrict'){
+           header("location: login.php?correct=1"); 
+         }
          else{
           header('location: user_profile.php?data=1');
               

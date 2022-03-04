@@ -56,6 +56,10 @@
       $err = "<p style = 'color : red ;'>please signup first !!</p>";
       echo "$err";
     }
+    if($_GET['correct'] == 1){
+      $err = "<p style = 'color : red ;'>your account is restricted !!</p>";
+      echo "$err";  
+    }
       ?>
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit" name = "login">Sign in</button>

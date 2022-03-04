@@ -148,7 +148,7 @@
         else{
          $html .=  "<button class='btn btn-primary' id ='restrict' name = 'restrict' data-res_id = ".$v['user_id'].">restrict</button>";}
         
-        $html .= "<button type='button' class='btn btn-danger' id = 'delete' name = 'delete'>delete</button>
+        $html .= "<button type='button' class='btn btn-danger' id = 'delete' name = 'delete' data-del_id = ".$v['user_id'].">delete</button>
         <button type='button' class='btn btn-warning' id = 'edit' name = 'edit'>edit</button></td></tr>";
 
       }
@@ -195,6 +195,20 @@
            'method':"POST",
            'url':"ajax.php",
            'data':{'status_restrict':$val},
+      }).done(function(response){
+           location.reload();
+          // console.log(response);
+      });
+  });
+  $('.table-responsive').on('click','#delete',function(e){
+    e.preventDefault();
+    console.log("delete");
+    $val = $(this).data('del_id');
+    console.log($val);
+      $.ajax({
+           'method':"POST",
+           'url':"ajax.php",
+           'data':{'del_user':$val},
       }).done(function(response){
            location.reload();
           // console.log(response);
