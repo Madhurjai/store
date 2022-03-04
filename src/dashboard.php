@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -110,7 +112,7 @@
           </button>
         </div>
       </div>
-
+   
       <h2>Section title</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
@@ -124,22 +126,31 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td>text</td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td>layout</td>
-            </tr>
-          </tbody>
-        </table>
+          <?php 
+    include('classes/DB.php');
+    // include('classes/User.php');
+    // include('classes/user_verify.php');
+    include('classes/admin_dash.php');
+    if(isset($_GET['login_type'])){
+      $user_data = new admin_dash();
+      $arr = $user_data->verify_user();
+      $html = "";
+      foreach( new RecursiveArrayIterator($arr->fetchAll()) as $k=>$v) {
+        // print_r($v);
+        $html .= "<tr><td>".$v['user_id']."</td>
+        <td>".$v['full_name']."
+        </td><td>".$v['email']."</td><td>".$v['role']."</td>
+        <td><button type='button' class='btn btn-success' name = 'approved'>approved</button>
+        <button type='button' class='btn btn-danger' name = 'delete'>delete</button></td></tr>";
+
+      }
+      $html .= "</tbody></table>";
+      echo $html ;
+      // print_r($arr);
+    }
+    
+
+?>
       </div>
     </main>
   </div>

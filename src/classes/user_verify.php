@@ -19,16 +19,21 @@
 
 
             $stmt = DB::getInstance();
-            $val = $stmt->query("select * from users where password = $this->password and email = '$this->email'");
-            // $stmt->execute();
-            // $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            $val = $stmt->prepare("select * from users where password = $this->password and email = '$this->email'");
+            $val->execute();
+            $val->setFetchMode(PDO::FETCH_ASSOC);
+            $val = new RecursiveArrayIterator($val->fetchAll()) ;
+            // print_r($val);
 
             // $val = DB::getInstance()->query("select * from users where password = $this->password ;");
-            $value  = $val->fetch();
+            // $value  = $val->fetch();
             //  print_r($value['email']);
-            if($value['email'] == $this->email){
+            if($val['role'] == 'admin'){
+                 return "admin" ;
+            }
+            else if($val[0]['email'] == $this->email){
 
-                return true ;
+                return $val ;
             }
             else{
                 return false;

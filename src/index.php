@@ -1,5 +1,4 @@
 <?php
- session_start();
     include('config.php');
     include('classes/DB.php');
     include('classes/User.php');
@@ -15,6 +14,8 @@
          $user1 = new User($full_name,$email,$pass, $re_pass);
          if($pass == $re_pass){
             $user1->addUser();
+            header("location: login.php");
+
          }
          else{
             //  echo "<h1>password not match !!</h1>" ;
@@ -26,13 +27,18 @@
          $password = $_POST['password_login'];
          $verify = new User_verify($email,$password);
         $val = $verify->verify_user();
-        if($val == true){
-         header('location: dashboard.html?login_type=1');
+      //   print_r($val);
+        if($val == "admin"){
+         header('location: dashboard.php?login_type=1');
 
         }
-        else{
-            header("location: login.php?correct=2"); 
-        }
+        else if($val == false){
+           header("location: login.php?correct=2"); 
+         }
+         else{
+          header('location: user_profile.php?data=1');
+              
+         }
          
 
      }
