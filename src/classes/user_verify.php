@@ -28,7 +28,7 @@
             // $val = DB::getInstance()->query("select * from users where password = $this->password ;");
             // $value  = $val->fetch();
             //  print_r($value['email']);
-            if($val['role'] == 'admin'){
+            if($val[0]['role'] == 'admin'){
                  return "admin" ;
             }
             else if($val[0]['email'] == $this->email){

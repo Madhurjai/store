@@ -9,12 +9,7 @@
         public  $password;
         public  $re_pass;
 
-        // public function __construct($email,$password)
-        // {
-        //     // $this->username = $username;
-        //     $this->password = $password;
-        //     $this->email = $email;
-        // }
+        
         public function verify_user(){
 
 
@@ -26,9 +21,9 @@
             // $val = DB::getInstance()->query("select * from users where password = $this->password ;");
             // $value  = $val->fetch();
             return $val ;
-            foreach( new RecursiveArrayIterator($val->fetchAll()) as $k=>$v) {
-                print_r($v);
-              }
+            // foreach( new RecursiveArrayIterator($val->fetchAll()) as $k=>$v) {
+            //     print_r($v);
+            //   }
             //  print_r($value['email']);
             // if($value['role'] == 'admin'){
             //      return "admin" ;
