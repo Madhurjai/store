@@ -125,7 +125,7 @@
               <th scope="col">Header</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class = "parent">
           <?php 
     include('classes/DB.php');
     // include('classes/User.php');
@@ -140,8 +140,16 @@
         $html .= "<tr><td>".$v['user_id']."</td>
         <td>".$v['full_name']."
         </td><td>".$v['email']."</td><td>".$v['role']."</td>
-        <td><button type='button' class='btn btn-success' name = 'approved'>approved</button>
-        <button type='button' class='btn btn-danger' name = 'delete'>delete</button></td></tr>";
+        <td> ";
+        if($v['status'] == 'restricted'){
+
+         $html .=  "<button class='btn btn-success' id ='approved' name = 'approve' data-approve_id = ".$v['user_id'].">approved</button>";
+        }
+        else{
+         $html .=  "<button class='btn btn-primary' id ='restrict' name = 'restrict' data-res_id = ".$v['user_id'].">restrict</button>";}
+        
+        $html .= "<button type='button' class='btn btn-danger' id = 'delete' name = 'delete'>delete</button>
+        <button type='button' class='btn btn-warning' id = 'edit' name = 'edit'>edit</button></td></tr>";
 
       }
       $html .= "</tbody></table>";
@@ -156,7 +164,42 @@
   </div>
 </div>
 
-
+</body>
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+     <script>
+  $('.table-responsive').on('click','#approved',function(e){
+    e.preventDefault();
+    console.log("hello");
+    $val = $(this).data('approve_id');
+    console.log($val,"approved");
+      $.ajax({
+           'method':"POST",
+           'url':"ajax.php",
+           'data':{'status_approve':$val},
+          //  datatype :"JSON",
+      }).done(function(response){
+           location.reload();
+      });
+  });
+
+
+
+  $('.table-responsive').on('click','#restrict',function(e){
+    e.preventDefault();
+    console.log("restricted");
+    $val = $(this).data('res_id');
+    console.log($val);
+      $.ajax({
+           'method':"POST",
+           'url':"ajax.php",
+           'data':{'status_restrict':$val},
+      }).done(function(response){
+           location.reload();
+          // console.log(response);
+      });
+  });
+    </script>
+  
 </html>

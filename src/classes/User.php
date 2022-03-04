@@ -22,4 +22,29 @@
             DB::getInstance()->exec("insert into users (full_name,email,password,re_pass) values
             ('$this->username','$this->email',$this->password,$this->re_pass)") ;
         }
+
+        public function update_approved($userid){
+
+
+           
+            $stmt = DB::getInstance();
+            $stmt->exec("update  users set status = 'approved' where user_id = $userid ;");
+            // $val->execute();
+            // $val->setFetchMode(PDO::FETCH_ASSOC);
+            // $val = new RecursiveArrayIterator($val->fetchAll()) ;
+
+             }
+             public function update_restricted($userid){
+
+
+           
+                $stmt = DB::getInstance();
+                $stmt->exec("update users set status = 'restricted' where user_id = $userid ;");
+                // $val->execute();
+                // $val->setFetchMode(PDO::FETCH_ASSOC);
+                // $val = new RecursiveArrayIterator($val->fetchAll()) ;
+    
+                
+                
+            }
     }
