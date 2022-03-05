@@ -49,10 +49,23 @@
      if(isset($_POST['add_product'])){
       $name = $_POST['name'];
       $price = $_POST['price'];
+      $update_img = $_POST['choose_img'];
       $product = new products($name,$price);
-      $product->addproduct();
-      // print_r($products);
+      $product->addproduct($update_img);
       header("location: products.php");
+      print_r($update_img);
+     }
+
+     if(isset($_POST['update_product'])){
+      $id = $_POST['product_id'];
+      $name = $_POST['name'];
+      $price = $_POST['price'];
+      // print_r($id);
+      $product = new products($name,$price);
+      $product->update_product($id , $name , $price); 
+      header("location: products.php");
+
+
      }
 
 ?>

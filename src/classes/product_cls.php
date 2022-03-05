@@ -5,26 +5,25 @@
     {
         // public  $user_id;
         // public  $username;
-        public  $email;
-        public  $password;
-        public  $address;
-        public  $address_2;
-        public  $city;
-        public  $state;
-        public  $zip;
+  
 
-        public function __construct($name , $price)
+        public function __construct($name , $price )
         {
             // $this->user_id = $user_id;
             $this->name = $name;
          
             $this->price = $price ;
+            // $this->img = $img ;
         }
 
-        public function addproduct(){
-            DB::getInstance()->exec("insert into products (name , price) values
-            ('$this->name',$this->price)") ;
+        public function addproduct($image){
+            DB::getInstance()->exec("insert into products (name , price , image) values
+            ('$this->name',$this->price , '$image')") ;
         }
+        public function update_product($id , $name , $price){
+            DB::getInstance()->exec("update products set name = '$name' , price = $price where product_id = $id ") ;
+        }
+       
     }
         // public function add_product($userid){
 

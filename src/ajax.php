@@ -25,3 +25,11 @@
         $val->del_product() ;
         // print_r($val);
     }
+    if(isset($_POST['edit_product'])){
+      header("location: add_product.php") ;
+
+        // $value = $_POST['edit_product'] ;
+        // $val = new customer_status($value);
+        // $val->del_product() ;
+        // print_r($val);
+    }

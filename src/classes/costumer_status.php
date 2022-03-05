@@ -73,5 +73,20 @@
             
             
         }
+        public function get_product_val(){      
+
+            $stmt = DB::getInstance();
+            $val = $stmt->prepare("select * from products where product_id = $this->userid ;");
+            $val->execute();
+            $val->setFetchMode(PDO::FETCH_ASSOC);
+            $arr = new RecursiveArrayIterator($val->fetchAll());
+
+            // $val = DB::getInstance()->query("select * from users where password = $this->password ;");
+            // $value  = $val->fetch();
+            return $arr ;
+
+            
+            
+        }
     }
   

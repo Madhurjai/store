@@ -57,7 +57,7 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="dashboard.html">
+            <a class="nav-link active" aria-current="page" href="dashboard.php">
               <span data-feather="home"></span>
               Dashboard
             </a>
@@ -150,6 +150,7 @@
           <div class="input-group">
             <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Enter id,name...">
           </div>
+         
         </div>
       
         
@@ -158,7 +159,7 @@
           <button type="submit" class="btn btn-primary">Search</button>
         </div>
         <div class="col-12">
-          <a class="btn btn-success" href="add-product.html">Add Product</a>
+          <a class="btn btn-success" href="add_product.php">Add Product</a>
         </div>
       </form>
       <div class="table-responsive">
@@ -169,6 +170,7 @@
               <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Price</th>
+              <th scope="col">image</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -184,8 +186,9 @@
                   $html .= "<tr><td>".$v['product_id']."</td>
                   <td>".$v['name']."
                   </td><td>".$v['price']."</td>
+                  <td>".$v['image']."</td>
                   <td> <button type='button' class='btn btn-danger' id = 'delete' name = 'delete' data-del_id = ".$v['product_id'].">delete</button>
-                  <button type='button' class='btn btn-warning' id = 'edit' name = 'edit'>edit</button></td></tr>";
+                  <a  href = 'add_product.php?id=".$v['product_id']."' class='btn btn-warning' id = 'edit' name = 'edit' data-edit_id = ".$v['product_id'].">edit</a></td></tr>";
                 }
                 
                 $html .= "</tbody></table>";
@@ -219,6 +222,21 @@
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+      //  $('.table-responsive').on('click', "#edit", function(){
+      // $id = $(this).data('edit_id');
+      // console.log($id);
+      // // header("location: add_product.php") ;
+      // $.ajax({
+      //      'method':"POST",
+      //      'url':"ajax.php",
+      //      'data':{'edit_product':$id},
+      // }).done(function(response){
+      //     //  location.reload();
+      //     // console.log(response);
+      // });
+
+      
+  // });
       $('.table-responsive').on('click','#delete',function(e){
     e.preventDefault();
     console.log("delete");
@@ -233,6 +251,8 @@
           // console.log(response);
       });
   });
+ 
+ 
     </script>
   </body>
 </html>

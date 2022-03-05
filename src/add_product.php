@@ -1,3 +1,13 @@
+<?php 
+  include('classes/costumer_status.php');
+if(isset($_GET['id'])){
+  $id = $_GET['id'] ;
+  $get_product = new customer_status($id);
+  $val = $get_product->get_product_val();
+  print_r($val);
+
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -112,15 +122,18 @@
       </div>
 
       <form class="row g-3" method = "POST" action = "main.php">
+        <input type = "hidden" name = "product_id" value = " <?php echo $val[0]['product_id'] ?>">
+        <input type = "file" name = "choose_img" placeholder="select">
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label" >name</label>
-          <input type="text" class="form-control" id="inputEmail4" name = "name">
+          <input type="text" class="form-control" id="inputEmail4" name = "name" value = "<?php echo $val[0]['name'] ?>">
         </div>
       
       
         <div class="col-md-2">
           <label for="inputZip" class="form-label">price</label>
-          <input type="text" class="form-control" id="inputZip" name = "price">
+          <input type="text" class="form-control" id="inputZip" name = "price" value = "<?php echo $val[0]['price'] ?>">
+
         </div>
         <div class="col-12">
           <div class="form-check">
@@ -130,9 +143,15 @@
             </label>
           </div>
         </div>
+        <?php if(!isset($val)) {?>
         <div class="col-12">
           <button type="submit" class="btn btn-primary" name = "add_product">Add Product</button>
+        </div> 
+        <?php } else {?>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary" id = "update" name = "update_product" >update Product</button>
         </div>
+        <?php } ;?>
       </form>      
     </main>
   </div>
@@ -140,5 +159,7 @@
 
 
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
   </body>
 </html>
