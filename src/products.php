@@ -165,7 +165,7 @@
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              <!-- <th scope="col">#</th> -->
               <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">Price</th>
@@ -173,20 +173,32 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1,001</td>
-              <td>random</td>
-              <td>data</td>
-              <td>placeholder</td>
-              <td><a href="#">Edit</a>&nbsp;<a href="#">Delete</a></td>
-            </tr>
-            <tr>
-              <td>1,002</td>
-              <td>placeholder</td>
-              <td>irrelevant</td>
-              <td>visual</td>
-              <td><a href="#">Edit</a>&nbsp;<a href="#">Delete</a></td>
-            </tr>
+            <?php 
+               include('classes/DB.php');
+               include('classes/products_table.php');
+                $user_data = new products_table();
+                $arr = $user_data->product_store();
+                $html = "";
+                foreach( new RecursiveArrayIterator($arr->fetchAll()) as $k=>$v) {
+                  // print_r($v);
+                  $html .= "<tr><td>".$v['product_id']."</td>
+                  <td>".$v['name']."
+                  </td><td>".$v['price']."</td>
+                  <td> <button type='button' class='btn btn-danger' id = 'delete' name = 'delete' data-del_id = ".$v['product_id'].">delete</button>
+                  <button type='button' class='btn btn-warning' id = 'edit' name = 'edit'>edit</button></td></tr>";
+                }
+                
+                $html .= "</tbody></table>";
+                echo $html ;
+                // print_r($arr);
+              
+              
+          
+          ?>
+
+
+
+      
           </tbody>
         </table>
         <nav aria-label="Page navigation example">
@@ -205,5 +217,22 @@
 
 
     <script src="../node_modules/bootstrap/dist/js/bootstrap.bundle.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $('.table-responsive').on('click','#delete',function(e){
+    e.preventDefault();
+    console.log("delete");
+    $val = $(this).data('del_id');
+    console.log($val);
+      $.ajax({
+           'method':"POST",
+           'url':"ajax.php",
+           'data':{'del_product':$val},
+      }).done(function(response){
+           location.reload();
+          // console.log(response);
+      });
+  });
+    </script>
   </body>
 </html>

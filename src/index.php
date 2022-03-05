@@ -1,49 +1,76 @@
-<?php
-    include('config.php');
-    include('classes/DB.php');
-    include('classes/User.php');
-    include('classes/user_verify.php');
-    // include('signin.html');
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Signin Template · Bootstrap v5.1</title>    
 
-     if(isset($_POST['submit'])){
-        //  $user_id = $_POST['user_id'];
-         $full_name = $_POST['full_name'];
-         $email = $_POST['email'];
-         $pass = $_POST['password'];
-         $re_pass = $_POST['re_pass'];
-         $user1 = new User($full_name,$email,$pass, $re_pass);
-         if($pass == $re_pass){
-            $user1->addUser();
-            header("location: login.php");
+    <!-- Bootstrap core CSS -->
+    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
-         }
-         else{
-            //  echo "<h1>password not match !!</h1>" ;
-             header("location: signin.php?correct=1");
-         }
-     }
-     if(isset($_POST['login'])){
-         $email = $_POST['email_login'];
-         $password = $_POST['password_login'];
-         $verify = new User_verify($email,$password);
-        $val = $verify->verify_user();
-      //   print_r($val);
-        if($val == "admin"){
-         header('location: dashboard.php?login_type=1');
 
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
         }
-        else if($val == false){
-           header("location: login.php?correct=2"); 
-         }
-        else if($val == 'restrict'){
-           header("location: login.php?correct=1"); 
-         }
-         else{
-          header('location: user_profile.php?data=1');
-              
-         }
-         
+      }
+    </style>
 
-     }
+    
+    <!-- Custom styles for this template -->
+    <link href="./assets/css/signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+<main class="form-signin">
+  <form action = "main.php" method = "POST">
+    <h1 class="h3 mb-3 fw-normal">Sign In</h1>
 
-?>
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name = "email_login">
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name = "password_login">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+      <?php 
+  if($_GET['correct'] == 2 ){
+      $err = "<p style = 'color : red ;'>please signup first !!</p>";
+      echo "$err";
+    }
+    if($_GET['correct'] == 1){
+      $err = "<p style = 'color : red ;'>your account is restricted !!</p>";
+      echo "$err";  
+    }
+      ?>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit" name = "login">Sign in</button>
+    
+    <p class="mt-5 mb-3 text-muted">&copy; CEDCOSS Technologies</p>
+
+    <a href="signin.php">regsiter</a>
+  </form>
+</main>
+
+
+    
+  </body>
+</html>

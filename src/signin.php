@@ -35,7 +35,7 @@
   <body class="text-center">
     
 <main class="form-signin">
-  <form method="POST" action = "index.php">
+  <form method="POST" action = "main.php">
     <h1 class="h3 mb-3 fw-normal">Sign up</h1>
 
     <!-- <div class="form-floating">

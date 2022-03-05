@@ -60,5 +60,18 @@
             
             
         }
+        public function del_product(){
+
+
+           
+            $stmt = DB::getInstance();
+            $stmt->exec("delete from products where product_id = $this->userid ;");
+            // $val->execute();
+            // $val->setFetchMode(PDO::FETCH_ASSOC);
+            // $val = new RecursiveArrayIterator($val->fetchAll()) ;
+
+            
+            
+        }
     }
   

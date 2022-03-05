@@ -19,3 +19,9 @@
         $val->del_from_dash() ;
         // print_r($val);
     }
+    if(isset($_POST['del_product'])){
+        $value = $_POST['del_product'] ;
+        $val = new customer_status($value);
+        $val->del_product() ;
+        // print_r($val);
+    }
