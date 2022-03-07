@@ -1,6 +1,7 @@
 <?php
     include('config.php');
-    
+    include('DB.php');
+
     class admin_dash extends DB
     {
         // public  $user_id;

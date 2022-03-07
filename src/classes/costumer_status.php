@@ -1,6 +1,6 @@
 <?php
     include('config.php');
-    include('classes/DB.php');
+    include('../classes/DB.php');
 
     // include('classes/User.php');
 
