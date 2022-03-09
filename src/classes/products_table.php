@@ -33,7 +33,7 @@ class products_table extends DB
 
 
         $stmt = DB::getInstance();
-        $val = $stmt->prepare("select count(*) from users ;");
+        $val = $stmt->prepare("select count(*) from products ;");
         $val->execute();
         $val->setFetchMode(\PDO::FETCH_ASSOC);
         $num = $val->fetchAll();

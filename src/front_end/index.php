@@ -6,7 +6,16 @@ use App\products_table ;
 include('../vendor/autoload.php');
 
 $user_data = new products_table();
-$_SESSION['print'] = $user_data->product_store();
+$limit = 5 ;
+if(isset($_GET['page'])){
+  $page_no = $_GET['page'] ;
+}
+else{
+  $page_no = 1;
+}
+$offset = ($page_no -1)*$limit ;
+$_SESSION['print'] = $user_data->product_store($offset);
+
 // $email = $_GET['email'];
 if (isset($_GET['email'])) {
     $_SESSION['email'] = $_GET['email'] ;
@@ -163,11 +172,28 @@ if (isset($_GET['email'])) {
         <div class="col">
           <nav aria-label="Page navigation example">
             <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <?php
+                $count = $user_data->number_of_row();
+                // print_r($count);
+                $pages = ceil($count/$limit);
+                if($page_no > 1){
+                  $val = $page_no -1 ;
+                  $temp  .= ' <li class="page-item"><a class="page-link" href="index.php?page='.$val.'">Previous</a></li>';
+                }
+                for($i = 1 ; $i <= $pages ; $i++){
+                    $temp .= '<li class="page-item"><a class="page-link" href="index.php?page='.$i.'">'.$i.'</a></li>';
+                }
+                if($pages > $page_no){
+                  $val = $page_no + 1;
+                  $temp .= '<li class="page-item"><a class="page-link" href="index.php?page='.$val.'">Next</a></li> ';
+                }
+                echo $temp ;
+               ?>
+              <!-- <li class="page-item"><a class="page-link" href="#">Previous</a></li> -->
+              <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
               <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+              <!-- <li class="page-item"><a class="page-link" href="#">Next</a></li> -->
             </ul>
           </nav>
         </div>
