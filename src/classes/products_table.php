@@ -11,12 +11,12 @@ class products_table extends DB
     public  $re_pass;
 
 
-    public function product_store()
+    public function product_store($offset)
     {
 
 
         $stmt = DB::getInstance();
-        $val = $stmt->prepare("select * from products ;");
+        $val = $stmt->prepare("select * from products limit $offset , 5 ;");
         $val->execute();
         $val->setFetchMode(\PDO::FETCH_ASSOC);
         $arr = array();
@@ -29,6 +29,22 @@ class products_table extends DB
         // $value  = $val->fetch();
         return $arr;
     }
+    public function number_of_row(){
+
+
+        $stmt = DB::getInstance();
+        $val = $stmt->prepare("select count(*) from users ;");
+        $val->execute();
+        $val->setFetchMode(\PDO::FETCH_ASSOC);
+        $num = $val->fetchAll();
+
+     
+    // }
+          return $num[0]['count(*)'] ;
+        //  print_r($value['email']);
+   
+        
+        }
     public function search_product($value)
     {
 

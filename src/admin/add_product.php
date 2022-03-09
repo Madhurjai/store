@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $get_product = new customer_status($id);
     $val = $get_product->get_product_val();
-    print_r($val);
+    // print_r($val);
 }
 ?>
 <!doctype html>
