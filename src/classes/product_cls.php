@@ -1,6 +1,6 @@
 <?php
     // include('config.php');
-    
+    namespace App ;
     class products extends DB
     {
         // public  $user_id;

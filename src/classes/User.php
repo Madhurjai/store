@@ -1,5 +1,6 @@
 <?php
-    include('config.php');
+    namespace App ;
+    // include('config.php');
     
     class User extends DB
     {

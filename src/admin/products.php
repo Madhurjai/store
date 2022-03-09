@@ -46,7 +46,7 @@
   <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
+      <a class="nav-link px-3" href="../front_end/logout.php">Sign out</a>
     </div>
   </div>
 </header>
@@ -57,7 +57,7 @@
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="dashboard.php">
+            <a class="nav-link active" aria-current="page" href="../admin/dashboard.php?login_type=1">
               <span data-feather="home"></span>
               Dashboard
             </a>
@@ -176,12 +176,15 @@
           </thead>
           <tbody>
             <?php 
-               include('../classes/DB.php');
-               include('../classes/products_table.php');
+              //  include('../classes/DB.php');
+              //  include('../classes/products_table.php');
+              use App\products_table ;
+
+               include('../vendor/autoload.php');
                 $user_data = new products_table();
                 $arr = $user_data->product_store();
                 $html = "";
-                foreach( new RecursiveArrayIterator($arr->fetchAll()) as $k=>$v) {
+                foreach($arr as $k=>$v) {
                   // print_r($v);
                   $html .= "<tr><td>".$v['product_id']."</td>
                   <td>".$v['name']."

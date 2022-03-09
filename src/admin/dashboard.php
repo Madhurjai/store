@@ -48,7 +48,7 @@
   <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
   <div class="navbar-nav">
     <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
+      <a class="nav-link px-3" href="index.php">Sign out</a>
     </div>
   </div>
 </header>
@@ -126,39 +126,77 @@
             </tr>
           </thead>
           <tbody class = "parent">
-          <?php 
+          <?php
     // include('../classes/DB.php');
     // include('classes/User.php');
     // include('classes/user_verify.php');
-    include('../classes/admin_dash.php');
-    if(isset($_GET['login_type'])){
-      $user_data = new admin_dash();
-      $arr = $user_data->verify_user();
-      $html = "";
-      foreach( new RecursiveArrayIterator($arr->fetchAll()) as $k=>$v) {
+    // include('../classes/admin_dash.php');
+          use App\Admin_dash;
+
+          include('../vendor/autoload.php');
+          $user_data = new Admin_dash();
+          $limit = 5 ;
+          if (isset($_GET['page'])) {
+              $page_no = $_GET['page'] ;
+            }   
+          else{
+            $page_no = 1 ;
+          }
+          $offset = ($page_no -1)*$limit ;
+          $arr = $user_data->verify_user($offset);
+
+          // if (isset($_GET['login_type'])) {
+              $html = "";
+              foreach ($arr as $k => $v) {
         // print_r($v);
-        $html .= "<tr><td>".$v['user_id']."</td>
+                  $html .= "<tr><td>".$v['user_id']."</td>
         <td>".$v['full_name']."
         </td><td>".$v['email']."</td><td>".$v['role']."</td>
         <td> ";
-        if($v['status'] == 'restricted'){
-
-         $html .=  "<button class='btn btn-success' id ='approved' name = 'approve' data-approve_id = ".$v['user_id'].">approved</button>";
-        }
-        else{
-         $html .=  "<button class='btn btn-primary' id ='restrict' name = 'restrict' data-res_id = ".$v['user_id'].">restrict</button>";}
+                  if ($v['status'] == 'restricted') {
+                      $html .=  "<button class='btn btn-success' id ='approved' name = 'approve' data-approve_id = ".$v['user_id'].">approved</button>";
+                  } else {
+                        $html .=  "<button class='btn btn-primary' id ='restrict' name = 'restrict' data-res_id = ".$v['user_id'].">restrict</button>";}
         
-        $html .= "<button type='button' class='btn btn-danger' id = 'delete' name = 'delete' data-del_id = ".$v['user_id'].">delete</button>
-        <button type='button' class='btn btn-warning' id = 'edit' name = 'edit'>edit</button></td></tr>";
-
-      }
-      $html .= "</tbody></table>";
-      echo $html ;
+                        $html .= "<button type='button' class='btn btn-danger' id = 'delete' name = 'delete' data-del_id = ".$v['user_id'].">delete</button>
+        </tr>";
+                }
+                 $html .= "</tbody></table>";
+                 echo $html ;
       // print_r($arr);
-    }
+                  // }
+             
     
 
 ?>
+<div class="pagination">
+<?php $count = $user_data->number_of_row();
+    //  print_r($count);
+    if($count > 0){
+      $pages = ceil($count/$limit);
+      $html = '<ul  style = "list-style : none ;">';
+      if($page_no > 1){
+        $val = $page_no -1 ;
+        $html .= '<li style = "display : inline-block ; margin : 5px ;"><a href = "dashboard.php?page='.$val.'" class = "btn btn-primary" >prev</a></li>' ;
+      }
+      for ($i = 1 ; $i <= $pages ;$i++){
+        if($i == $page_no){
+          $active = "active" ;
+        }
+        else{
+          $active = "" ; 
+        }
+        $html .= '<li style = "display : inline-block ; margin : 5px ;" class = "'.$active.'"><a href = "dashboard.php?page='.$i.'" class = "btn btn-primary" >'.$i.'</a></li>' ;
+      }
+      if($page_no < $pages){
+            $v = $page_no + 1;
+             $html .= '<li style = "display : inline-block ; margin : 5px ;"><a href = "dashboard.php?page='.$v.'" class = "btn btn-primary" >next</a></li>' ;
+      }
+      $html .= '</ul>' ;
+    }
+     echo $html ;
+     ?>
+</div>
       </div>
     </main>
   </div>

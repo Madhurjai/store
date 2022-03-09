@@ -1,11 +1,11 @@
 <?php
-    include('config.php');
-    include('../classes/DB.php');
-
+    // include('config.php');
+    // include('../classes/DB.php');
+    namespace App ;
     // include('classes/User.php');
 
     
-    class customer_status extends DB
+class customer_status extends DB
     {
         // public  $user_id;
         public  $userid;
@@ -78,8 +78,8 @@
             $stmt = DB::getInstance();
             $val = $stmt->prepare("select * from products where product_id = $this->userid ;");
             $val->execute();
-            $val->setFetchMode(PDO::FETCH_ASSOC);
-            $arr = new RecursiveArrayIterator($val->fetchAll());
+            $val->setFetchMode(\PDO::FETCH_ASSOC);
+            $arr = new \RecursiveArrayIterator($val->fetchAll());
 
             // $val = DB::getInstance()->query("select * from users where password = $this->password ;");
             // $value  = $val->fetch();

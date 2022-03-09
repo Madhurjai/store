@@ -1,5 +1,6 @@
 <?php
-    include('config.php');
+    namespace App ;
+    // include('config.php');
     
     class User_verify extends DB
     {
@@ -22,8 +23,8 @@
             $val = $stmt->prepare("select * from users where password = $this->password and email = '$this->email'");
             if(isset($val)){
             $val->execute();
-            $val->setFetchMode(PDO::FETCH_ASSOC);
-            $val = new RecursiveArrayIterator($val->fetchAll()) ;
+            $val->setFetchMode(\PDO::FETCH_ASSOC);
+            $val = new \RecursiveArrayIterator($val->fetchAll()) ;
             // print_r($val);
 
             // $val = DB::getInstance()->query("select * from users where password = $this->password ;");
